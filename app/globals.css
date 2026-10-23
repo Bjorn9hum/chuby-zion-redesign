@@ -1,26 +1,407 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #F2EEE4;
+  --foreground: #292D27;
+  --plum: #173D30;
+  --plum-light: #245744;
+  --lavender: #8C9B86;
+  --blush: #E4E8DC;
+  --ivory: #F2EEE4;
+  --muted: #68746A;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
+  background: var(--background);
 }
 
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #C6A66A;
+  color: #292D27;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  text-underline-offset: 4px;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--lavender);
+  outline-offset: 4px;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Premium Chuby-Zion visual refinements */
+
+main > header {
+  position: sticky;
+  top: 0;
+  background: rgb(246 240 241 / 94%);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 1px 0 rgb(61 32 57 / 5%);
+}
+
+main > header > div {
+  min-height: 88px;
+}
+
+main > header nav a {
+  position: relative;
+  transition: color 220ms ease;
+}
+
+main > header nav a:hover {
+  color: var(--lavender);
+}
+
+main > header nav a::after {
+  position: absolute;
+  right: 0;
+  bottom: -7px;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms ease;
+}
+
+main > header nav a:hover::after {
+  transform: scaleX(1);
+}
+
+main h1,
+main h2,
+main h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+}
+
+main h1 {
+  letter-spacing: -0.055em;
+}
+
+main section a[href*="place-order"],
+main section a[href^="tel:"],
+main > header a[href*="place-order"] {
+  transition:
+    background-color 220ms ease,
+    color 220ms ease,
+    transform 220ms ease;
+}
+
+main section a[href*="place-order"]:hover,
+main section a[href^="tel:"]:hover,
+main > header a[href*="place-order"]:hover {
+  transform: translateY(-2px);
+}
+
+main section img {
+  backface-visibility: hidden;
+}
+
+main section article img {
+  transition:
+    transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    filter 400ms ease;
+}
+
+main section article:hover img {
+  filter: saturate(1.06);
+}
+
+main section#about,
+main section#contact {
+  scroll-margin-top: 100px;
+}
+
+main section#about a,
+main section#contact a {
+  transition: color 200ms ease;
+}
+
+main section#about a:hover,
+main section#contact a:hover {
+  color: var(--lavender);
+}
+
+main footer a {
+  transition: color 200ms ease;
+}
+
+main footer a:hover {
+  color: #C6A66A;
+}
+
+@media (min-width: 1024px) {
+  main > header > div {
+    min-height: 96px;
+  }
+
+  main section#about,
+  main section#contact {
+    scroll-margin-top: 110px;
+  }
+}
+
+@media (max-width: 767px) {
+  main > header > div {
+    min-height: 76px;
+    gap: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  main > header > div > a:first-child img {
+    max-width: 112px;
+  }
+
+  main > header > div > a:last-child {
+    padding: 12px 13px;
+    font-size: 9px;
+    letter-spacing: 0.06em;
+  }
+
+  main > header nav {
+    gap: clamp(10px, 3vw, 20px);
+  }
+
+  main > header nav a {
+    font-size: 9px;
+    letter-spacing: 0.07em;
+  }
+
+  main section#about,
+  main section#contact {
+    scroll-margin-top: 90px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main > header nav a::after {
+    transition: none;
+  }
+
+  main section article img,
+  main section a[href*="place-order"],
+  main section a[href^="tel:"] {
+    transition: none;
+  }
+}
+
+
+/* Chuby-Zion Forest Green & Gold palette */
+:root {
+  --background: #F2EEE4;
+  --foreground: #292D27;
+  --plum: #173D30;
+  --plum-light: #245744;
+  --lavender: #8C9B86;
+  --blush: #E4E8DC;
+  --ivory: #F2EEE4;
+  --muted: #68746A;
+  --gold: #C6A66A;
+}
+
+/* Gold highlights and refined green surfaces */
+::selection {
+  background: #C6A66A;
+  color: #173D30;
+}
+
+main > header {
+  background: rgb(242 238 228 / 94%);
+}
+
+main > header nav a:hover,
+main section#about a:hover,
+main section#contact a:hover {
+  color: #8C9B86;
+}
+
+main footer a:hover {
+  color: #C6A66A;
+}
+
+/* Chuby-Zion light and dark theme support */
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #111512;
+  --foreground: #F2EEE4;
+  --plum: #173D30;
+  --plum-light: #245744;
+  --lavender: #AEBBA7;
+  --blush: #202820;
+  --ivory: #111512;
+  --muted: #B8C2B6;
+  --gold: #D8B875;
+}
+
+html[data-theme="dark"],
+html[data-theme="dark"] body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+html[data-theme="dark"] main {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+html[data-theme="dark"] main [class*="bg-[#F2EEE4]"] {
+  background-color: #111512 !important;
+}
+
+html[data-theme="dark"] main [class*="bg-[#E4E8DC]"],
+html[data-theme="dark"] main [class*="bg-[#eee5eb]"],
+html[data-theme="dark"] main [class*="bg-[#f8f4f5]"] {
+  background-color: #202820 !important;
+}
+
+html[data-theme="dark"] main [class*="bg-[#21121f]"] {
+  background-color: #171D18 !important;
+}
+
+html[data-theme="dark"] main [class*="text-[#292D27]"],
+html[data-theme="dark"] main [class*="text-[#173D30]"] {
+  color: #F2EEE4 !important;
+}
+
+html[data-theme="dark"] main [class*="text-[#68746A]"] {
+  color: #B8C2B6 !important;
+}
+
+html[data-theme="dark"] main [class*="border-[#173D30]"] {
+  border-color: #39483A !important;
+}
+
+html[data-theme="dark"] main > header {
+  background: rgb(17 21 18 / 94%) !important;
+  border-color: #39483A !important;
+  box-shadow: 0 1px 0 rgb(216 184 117 / 10%);
+}
+
+html[data-theme="dark"] main [class*="hover:bg-[#E4E8DC]"]:hover {
+  background-color: #303B31 !important;
+}
+
+html[data-theme="dark"] ::selection {
+  background: #D8B875;
+  color: #111512;
+}
+
+/* Stronger dark-mode overrides for the existing page design */
+html[data-theme="dark"] main,
+html[data-theme="dark"] main section,
+html[data-theme="dark"] main footer {
+  background-color: #111512;
+  color: #F2EEE4;
+}
+
+html[data-theme="dark"] main [class*="bg-[#F2EEE4]"],
+html[data-theme="dark"] main [class*="bg-[#eee5eb]"],
+html[data-theme="dark"] main [class*="bg-[#f8f4f5]"] {
+  background-color: #111512 !important;
+}
+
+html[data-theme="dark"] main [class*="bg-[#E4E8DC]"] {
+  background-color: #202820 !important;
+}
+
+html[data-theme="dark"] main [class*="text-[#292D27]"],
+html[data-theme="dark"] main [class*="text-[#173D30]"] {
+  color: #F2EEE4 !important;
+}
+
+html[data-theme="dark"] main [class*="text-[#68746A]"] {
+  color: #B8C2B6 !important;
+}
+
+html[data-theme="dark"] main > header a:not([class*="bg-[#173D30]"]) {
+  color: #F2EEE4;
+}
+
+html[data-theme="dark"] main > header {
+  background-color: rgb(17 21 18 / 96%) !important;
+}
+
+html[data-theme="dark"] main [class*="border-[#173D30]"] {
+  border-color: #39483A !important;
 }
